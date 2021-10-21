@@ -1,6 +1,6 @@
 
 # Python3 program to find the next optimal move for a player
-player, opponent = 'x', 'o'
+player, opponent = 'O', 'X'
 
 player_win, player_lose = 10, -10
 
