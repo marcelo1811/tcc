@@ -2,7 +2,7 @@
 # para rodar, copie e cole a linha abaixo no terminal (sem o #)
 # export FLASK_APP=2-ia.py && flask run --host 0.0.0.0 --port 3000
 import numpy as np
-from minimax import findBestMove
+from minimax import findBestMove, isMovesLeft
 from flask import Flask, request
 from my_requests import post_request, maquina_cnc_url
 
@@ -15,20 +15,30 @@ def analisar_jogo():
     print('IA DE ANALISE DE JOGADA---')
     print('--------------------------')
     jogo = request.get_json().get('board')
-    bestMove, bestVal = findBestMove(jogo)
+    bestMove, bestVal, hasMove = findBestMove(jogo)
+    print(bestVal)
+    
+    if hasMove:
+      linha = bestMove[0]
+      coluna = bestMove[1]
+      jogo[linha][coluna] = "O"
 
-    linha = bestMove[0]
-    coluna = bestMove[1]
-    jogo[linha][coluna] = "O"
+      print(f'melhor jogada: {bestMove}')
+      coordenadas_para_mover = encontrar_coordenadas(linha, coluna)
+      dados_de_envio = {
+        "coordenadas": coordenadas_para_mover
+      }
+      post_request(maquina_cnc_url, dados_de_envio)
+
+    vencedor = 0
+    if bestVal == 10:
+      vencedor = 2 # Máquina venceu
+    elif bestVal == -10:
+      vencedor = 1 # Jogador venceu
+    elif not isMovesLeft(jogo):
+      vencedor = -1
     
-    print(f'melhor jogada: {bestMove}')
-    coordenadas_para_mover = encontrar_coordenadas(linha, coluna)
-    dados_de_envio = {
-      "coordenadas": coordenadas_para_mover
-    }
-    post_request(maquina_cnc_url, dados_de_envio)
-    
-    result = { "novo estado": jogo }
+    result = { "novo estado": jogo, "venceu": vencedor }
     print(result)
     return result
 
@@ -51,3 +61,6 @@ def encontrar_coordenadas(linha, coluna):
     return 8
   elif (linha == 2 and coluna == 2):
     return 9
+
+def run():
+  app.run(host='0.0.0.0', port='3000')

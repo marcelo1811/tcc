@@ -152,7 +152,7 @@ def findBestMove(board) :
                     bestVal = moveVal
  
     # print("The value of the best Move is :", bestVal)
-    #if (isMovesLeft(board) == False):
-        #bestVal = -1
+    # if (isMovesLeft(board) == False):
+    #     bestVal = -1
 
-    return bestMove, bestVal
+    return bestMove, bestVal, isMovesLeft(board)

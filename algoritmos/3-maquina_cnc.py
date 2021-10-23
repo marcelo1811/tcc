@@ -3,6 +3,7 @@
 # export FLASK_APP=3-maquina_cnc.py && flask run --host 0.0.0.0 --port 3001
 from minimax import findBestMove
 from flask import Flask, request
+import gcode
 
 app = Flask(__name__)
 
@@ -13,5 +14,9 @@ def evaluate_board():
     print('MAQUINA CNC---------------')
     print('--------------------------')
     coordenadas = request.get_json().get('coordenadas')
+    # gcode.main(coordenadas)
     print(f'movendo para {coordenadas}')
     return { "coordenadas": coordenadas }
+
+def run():
+  app.run(host='0.0.0.0', port='3001')
