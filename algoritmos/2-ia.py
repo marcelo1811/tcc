@@ -16,7 +16,6 @@ def analisar_jogo():
     print('--------------------------')
     jogo = request.get_json().get('board')
     bestMove, bestVal, hasMove = findBestMove(jogo)
-    print(bestVal)
     
     if hasMove and bestVal != -10:
       linha = bestMove[0]

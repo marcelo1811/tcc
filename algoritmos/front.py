@@ -1,7 +1,5 @@
 import tkinter as tk
-import time
 from threading import Thread
-from tkinter import font
 visao_computacional = __import__('1-visao_computacional')
 ia_api = __import__('2-ia')
 cnc_api = __import__('3-maquina_cnc')
