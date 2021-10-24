@@ -18,7 +18,7 @@ def analisar_jogo():
     bestMove, bestVal, hasMove = findBestMove(jogo)
     print(bestVal)
     
-    if hasMove:
+    if hasMove and bestVal != -10:
       linha = bestMove[0]
       coluna = bestMove[1]
       jogo[linha][coluna] = "O"
@@ -36,7 +36,7 @@ def analisar_jogo():
     elif bestVal == -10:
       vencedor = 1 # Jogador venceu
     elif not isMovesLeft(jogo):
-      vencedor = -1
+      vencedor = -1 # Deu velha
     
     result = { "novo estado": jogo, "venceu": vencedor }
     print(result)

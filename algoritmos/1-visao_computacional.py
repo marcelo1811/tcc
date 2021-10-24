@@ -6,9 +6,9 @@ import json
 
 def main():
   estado_inicial = [
-    ["X", "O", "O"], # 0
-    ["O", "_", "X"], # 1
-    ["X", "_", "_"], # 2
+    ["X", "X", "O"], # 0
+    ["O", "X", "X"], # 1
+    ["X", "O", "O"], # 2
   ] # 0 1 2
 
   # estado_inicial = visao.main()

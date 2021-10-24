@@ -154,5 +154,7 @@ def findBestMove(board) :
     # print("The value of the best Move is :", bestVal)
     # if (isMovesLeft(board) == False):
     #     bestVal = -1
+    if bestVal == -1000:
+        bestVal = evaluate(board)
 
     return bestMove, bestVal, isMovesLeft(board)
