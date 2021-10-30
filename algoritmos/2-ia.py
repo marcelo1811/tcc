@@ -15,6 +15,7 @@ def analisar_jogo():
     print('IA DE ANALISE DE JOGADA---')
     print('--------------------------')
     jogo = request.get_json().get('board')
+    count = request.get_json().get('count')
     bestMove, bestVal, hasMove = findBestMove(jogo)
     
     if hasMove and bestVal != -10:
@@ -25,7 +26,8 @@ def analisar_jogo():
       print(f'melhor jogada: {bestMove}')
       coordenadas_para_mover = encontrar_coordenadas(linha, coluna)
       dados_de_envio = {
-        "coordenadas": coordenadas_para_mover
+        "coordenadas": coordenadas_para_mover,
+        "count": count
       }
       post_request(maquina_cnc_url, dados_de_envio)
 

@@ -12,13 +12,13 @@ thr2.daemon = True
 thr2.start()
 
 suaVez = True
-count = 0
+count = 1
 venceu = 0
 
 def iniciar():
   global suaVez, count
   suaVez = True
-  count = 0
+  count = 1
 
   initiate.place_forget()
   ongoing.place(relx=0.5, rely=0.1, anchor="center")
@@ -33,14 +33,13 @@ def finalizar():
     player.place_forget()
     machine.place(relx=0.5, rely=0.3, anchor="center")
     # Executa todos os processos
-    venceu = visao_computacional.main()
+    venceu = visao_computacional.main(count)
     suaVez = False
   else:
     machine.place_forget()
     player.place(relx=0.5, rely=0.3, anchor="center")
+    count = count + 1
     suaVez = True
-  
-  count = count + 1
 
   if venceu != 0:
     machine.place_forget()

@@ -14,8 +14,10 @@ def evaluate_board():
     print('MAQUINA CNC---------------')
     print('--------------------------')
     coordenadas = request.get_json().get('coordenadas')
+    count = request.get_json().get('count')
     # gcode.main(coordenadas)
     print(f'movendo para {coordenadas}')
+    print(f'{count}ª jogada')
     return { "coordenadas": coordenadas }
 
 def run():
