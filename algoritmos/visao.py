@@ -3,6 +3,7 @@ import numpy as np
 
 def main():
   def takePicture():
+    # Trocar o número dentro do parentesis até encontrar a câmera
     cam = cv2.VideoCapture(0)
 
     camOn = True
@@ -15,6 +16,11 @@ def main():
 
       if count == 2:
         imgName = "images/screenshot.png"
+        print(img.shape)
+        # Recortando a imagem para obter apenas o tabuleiro
+        # 1º valor um range de pixels da altura considerando 0 como o topo da imagem
+        # 2º valor um range de pixels da largura considerando 0 como o lado esquerdo a imagem
+        img = img[55:380, 230:560]
         cv2.imwrite(imgName, img)
         camOn = False
       
@@ -40,9 +46,7 @@ def main():
     matrix[row - 1][col - 1] = shape
     return matrix
 
-  def createPattern(path):
-    img = cv2.imread(path)
-    # img = cv2.resize(cv2.imread(path), (500, 500))
+  def createPattern(img):
     imgHSV = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
     lower = np.array([0,79,120])
     upper = np.array([179,255,255])
@@ -152,20 +156,24 @@ def main():
       cv2.waitKey(1)
     
   # getMask()
-  # takePicture()
+
+  # Descomentar para tirar a foto com câmera
+  takePicture()
   Xpath = 'images/ex.jpg'
   Opath = 'images/circle.png'
-  path = 'images/teste2.jpg'
-  img = createPattern(path)
+  # Trocar path para 'images/screenshot.png' para analisar foto da câmera
+  path = 'images/screenshot.png'
   imgContour = cv2.imread(path)
+  # imgContour = imgContour[55:380, 230:560]
+  imgCanny = createPattern(imgContour)
   # imgContour = cv2.resize(cv2.imread(path), (500, 500))
   cv2.imshow('Original', imgContour)
-  cv2.imshow('Canny', img)
+  cv2.imshow('Canny', imgCanny)
 
   patternX = createPatternItem(Xpath)
   patternO = createPatternItem(Opath)
 
-  matrix = getContours(img, patternX, patternO)
+  matrix = getContours(imgCanny, patternX, patternO)
 
   cv2.imshow('Contour', imgContour)
 
