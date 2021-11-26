@@ -22,7 +22,7 @@ def main():
         # Recortando a imagem para obter apenas o tabuleiro
         # 1º valor um range de pixels da altura considerando 0 como o topo da imagem
         # 2º valor um range de pixels da largura considerando 0 como o lado esquerdo a imagem
-        img = img[55:380, 230:560]
+        img = img[55:430, 200:570]
         cv2.imwrite(imgName, img)
         camOn = False
       
@@ -169,8 +169,8 @@ def main():
   # imgContour = imgContour[55:380, 230:560]
   imgCanny = createPattern(imgContour)
   # imgContour = cv2.resize(cv2.imread(path), (500, 500))
-  cv2.imshow('Original', imgContour)
-  cv2.imshow('Canny', imgCanny)
+  #cv2.imshow('Original', imgContour)
+  #cv2.imshow('Canny', imgCanny)
 
   patternX = createPatternItem(Xpath)
   patternO = createPatternItem(Opath)

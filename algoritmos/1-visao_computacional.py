@@ -5,13 +5,13 @@ import visao
 import json
 
 def main(count):
-  estado_inicial = [
-    ["X", "_", "O"], # 0
-    ["_", "_", "X"], # 1
-    ["X", "_", "O"], # 2
-  ] # 0 1 2
+#  estado_inicial = [
+#    ["X", "_", "O"], # 0
+#    ["_", "_", "X"], # 1
+#    ["X", "_", "O"], # 2
+#  ] # 0 1 2
 
-  # estado_inicial = visao.main()
+  estado_inicial = visao.main()
 
   dados_de_envio = {
     'board': estado_inicial,

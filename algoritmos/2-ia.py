@@ -16,12 +16,31 @@ def analisar_jogo():
     print('--------------------------')
     jogo = request.get_json().get('board')
     count = request.get_json().get('count')
-    bestMove, bestVal, hasMove = findBestMove(jogo)
+    bestMove, bestVal, hasMove, actualVal, nextVal = findBestMove(jogo)
+  
+    vencedor = 0
+
+    print(nextVal)
+    # modificado
+    if not isMovesLeft(jogo):
+      vencedor = -1 # Deu velha
+
+    if nextVal == 10:
+      print('Máquina venceu')
+      vencedor = 2
     
-    if hasMove and bestVal != -10:
+    if actualVal == -10:
+      print('Jogador venceu')
+      vencedor = 1
+    
+    result = { "novo estado": jogo, "venceu": vencedor }
+    print(result)
+
+    #if hasMove and bestVal != -10:
+    if hasMove and vencedor != 1:
       linha = bestMove[0]
       coluna = bestMove[1]
-      jogo[linha][coluna] = "O"
+      jogo[linha][coluna] = "X"
 
       print(f'melhor jogada: {bestMove}')
       coordenadas_para_mover = encontrar_coordenadas(linha, coluna)
@@ -31,16 +50,6 @@ def analisar_jogo():
       }
       post_request(maquina_cnc_url, dados_de_envio)
 
-    vencedor = 0
-    if bestVal == 10:
-      vencedor = 2 # Máquina venceu
-    elif bestVal == -10:
-      vencedor = 1 # Jogador venceu
-    elif not isMovesLeft(jogo):
-      vencedor = -1 # Deu velha
-    
-    result = { "novo estado": jogo, "venceu": vencedor }
-    print(result)
     return result
 
 def encontrar_coordenadas(linha, coluna):

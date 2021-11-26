@@ -1,6 +1,6 @@
 
 # Python3 program to find the next optimal move for a player
-player, opponent = 'O', 'X'
+player, opponent = 'X', 'O'
 
 player_win, player_lose = 10, -10
 
@@ -51,7 +51,7 @@ def evaluate(b) :
             return player_lose
  
     # Else if none of them have won then return 0
-    return 1
+    return 0
  
 # This is the minimax function. It considers all
 # the possible ways the game can go and returns
@@ -157,4 +157,15 @@ def findBestMove(board) :
     if bestVal == -1000:
         bestVal = evaluate(board)
 
-    return bestMove, bestVal, isMovesLeft(board)
+    actualVal = evaluate(board)
+
+    newBoard = [list(li) for li in board]
+    newBoard[bestMove[0]][bestMove[1]] = player
+    nextVal = evaluate(newBoard)
+
+    print('board')
+    print(board)
+    print('newBoard')
+    print(newBoard)
+
+    return bestMove, bestVal, isMovesLeft(board), actualVal, nextVal
